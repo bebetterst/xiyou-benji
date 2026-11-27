@@ -1,11 +1,34 @@
 import type { EnemyDef } from './types'
 
 export const ENEMIES: Record<string, EnemyDef> = {
+  hunshi_minion: {
+    enemy_id: 'hunshi_minion',
+    name: '混世小妖',
+    max_hp: 22,
+    traits: ['部众'],
+    moveset: [
+      { move_id: 'mn_slash', intent_type: 'attack', value: 6, weight: 3 },
+      { move_id: 'mn_guard', intent_type: 'defend', value: 4, weight: 2 },
+      { move_id: 'mn_poke', intent_type: 'attack', value: 8, weight: 1 },
+    ],
+  },
+  elite_hunshi_vanguard: {
+    enemy_id: 'elite_hunshi_vanguard',
+    name: '混世先锋',
+    max_hp: 38,
+    traits: ['精英', '妖气'],
+    moveset: [
+      { move_id: 'vg_thrust', intent_type: 'attack', value: 9, weight: 3 },
+      { move_id: 'vg_brace', intent_type: 'defend', value: 7, weight: 2 },
+      { move_id: 'vg_rally', intent_type: 'skill', value: 1, weight: 1 },
+      { move_id: 'vg_heavy', intent_type: 'enrage', value: 13, weight: 1 },
+    ],
+  },
   boss_hunshi_mowang: {
     enemy_id: 'boss_hunshi_mowang',
     name: '混世魔王',
-    max_hp: 72,
-    traits: ['妖气'],
+    max_hp: 78,
+    traits: ['Boss', '妖气'],
     moveset: [
       { move_id: 'hs_slash', intent_type: 'attack', value: 12, weight: 3 },
       { move_id: 'hs_guard', intent_type: 'defend', value: 8, weight: 2 },
