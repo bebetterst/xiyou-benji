@@ -1,8 +1,9 @@
 # 云端 → Mac mini 同步步骤
 
-> 文档状态：运维说明（v1.0）  
+> 文档状态：运维说明（v1.1）  
 > 场景：可玩原型在 Cursor 云端迭代；阶段性成果同步回 Mac mini 本机仓库。  
-> 目标仓库：`https://github.com/bebetterst/xiyou-benji`  
+> 目标仓库（已创建 · public · `main`）：`https://github.com/bebetterst/xiyou-benji`  
+> Clone URL：`https://github.com/bebetterst/xiyou-benji.git`  
 > Mac 路径：`/Users/zhuning/nascode/xiyou-benji`
 
 ---
@@ -125,5 +126,6 @@ git stash pop          # 解决冲突后再决定是否 push 回远程
 | 版本 | 说明 |
 |------|------|
 | v1.0 | 初稿：云端重建后同步回 Mac mini 流程 |
+| v1.1 | 仓库已上线 `bebetterst/xiyou-benji`；补 Clone URL；Mac 可直接 `git pull` / `git clone` |
 
 *仓库 URL 或 Mac 路径变更时请升版。*
