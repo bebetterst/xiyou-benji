@@ -256,7 +256,7 @@ body {
 
 .story-art {
   flex: 1;
-  min-height: 180px;
+  min-height: 160px;
   border-radius: 16px;
   background:
     radial-gradient(circle at 30% 30%, rgba(212, 135, 60, 0.35), transparent 50%),
@@ -267,6 +267,12 @@ body {
   font-size: 3rem;
   letter-spacing: 0.2em;
   margin-bottom: 16px;
+}
+
+.stage-art {
+  background:
+    radial-gradient(circle at 70% 40%, rgba(179, 58, 43, 0.4), transparent 55%),
+    linear-gradient(160deg, #2a1210, #1a1810);
 }
 
 .story-body {
@@ -282,39 +288,259 @@ body {
   margin-bottom: 8px;
 }
 
+.mods-line {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--smoke);
+}
+
 .options {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
-/* Combat HUD */
-.combat {
-  padding-top: calc(12px + var(--safe-top));
-  padding-bottom: calc(10px + var(--safe-bottom));
-  gap: 8px;
+.option-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.enemy-panel {
+.option-btn {
+  width: 100%;
+}
+
+.option-hint {
+  font-size: 0.75rem;
+  color: var(--cinnabar);
+  letter-spacing: 0.04em;
+  padding-left: 4px;
+}
+
+.option-aside {
+  font-size: 0.78rem;
+  color: var(--smoke);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  padding-left: 4px;
+  opacity: 0.85;
+}
+
+/* 月圆式署名短句 */
+.lore-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+
+.lore-divider {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(42, 26, 16, 0.12);
+}
+
+.lore-line {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.lore-speaker {
+  display: inline-block;
+  min-width: 4.2em;
+  margin-right: 6px;
+  color: var(--cinnabar);
+  letter-spacing: 0.06em;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.lore-line.tone-threat .lore-speaker {
+  color: #8a2a1e;
+}
+
+.lore-line.tone-whisper .lore-speaker,
+.lore-line.tone-echo .lore-speaker {
+  color: var(--moss);
+}
+
+.combat-whisper {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: var(--smoke);
+  letter-spacing: 0.02em;
+  padding: 4px 8px;
+  border-left: 2px solid rgba(179, 58, 43, 0.45);
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 0 8px 8px 0;
+  max-height: 2.6em;
+  overflow: hidden;
+  animation: fade-up 0.35s ease-out;
+}
+
+.aside-toast {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: calc(28% + var(--safe-bottom));
+  z-index: 30;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(42, 26, 16, 0.92);
+  color: #f3e6d4;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  pointer-events: none;
+  animation: toast-in 2.2s ease-out forwards;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes toast-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  12% {
+    opacity: 1;
+    transform: none;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.ending-lore {
+  text-align: left;
+  margin-top: 14px;
+}
+
+.ending-lore .lore-line {
+  color: #f3e6d4;
+  opacity: 0.9;
+  font-size: 0.88rem;
+}
+
+.lore-result {
+  text-align: left;
+}
+
+.lore-result h2 {
+  text-align: center;
+}
+
+/* —— Combat —— */
+.combat {
+  padding: calc(8px + var(--safe-top)) 12px 0;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.combat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--smoke);
+  flex-shrink: 0;
+}
+
+.wave-tag {
+  color: var(--cinnabar);
+  font-weight: 700;
+}
+
+.enemy-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px;
+  flex-shrink: 0;
+  scrollbar-width: thin;
+}
+
+.enemy-card {
+  flex: 1 1 0;
+  min-width: 118px;
+  max-width: 160px;
+  appearance: none;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 10px 8px 8px;
   background: linear-gradient(180deg, #2a1a10, #3d2418);
   color: #f3e6d4;
-  border-radius: 16px;
-  padding: 14px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   position: relative;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.enemy-card.is-selected {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.enemy-card.is-dead {
+  opacity: 0.35;
+  filter: grayscale(0.8);
+  cursor: default;
+}
+
+.enemy-card .intent {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(179, 58, 43, 0.95);
+  color: #fff;
+  border-radius: 8px;
+  padding: 3px 7px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  animation: intent-glow 1.8s ease-in-out infinite;
+}
+
+.enemy-card.is-dead .intent {
+  animation: none;
+  background: rgba(80, 70, 60, 0.8);
 }
 
 .enemy-name {
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  padding-right: 42px;
+}
+
+.enemy-silhouette {
+  height: 52px;
+  display: grid;
+  place-items: center;
+  font-size: 1.9rem;
+  opacity: 0.9;
+}
+
+.enemy-traits {
+  font-size: 0.65rem;
+  opacity: 0.65;
+  margin-top: 2px;
+  letter-spacing: 0.06em;
 }
 
 .hp-bar {
-  height: 10px;
+  height: 8px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.35);
   overflow: hidden;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .hp-bar > i {
@@ -330,130 +556,241 @@ body {
 }
 
 .hp-text {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   opacity: 0.85;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
-.intent {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(179, 58, 43, 0.95);
-  color: #fff;
-  border-radius: 10px;
-  padding: 6px 10px;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  animation: intent-glow 1.8s ease-in-out infinite;
-}
-
-.enemy-silhouette {
-  height: 88px;
-  margin-top: 8px;
-  display: grid;
-  place-items: center;
-  font-size: 2.6rem;
-  opacity: 0.9;
-}
-
-.player-panel {
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 14px;
-  padding: 12px;
+.combat-mid {
+  background: rgba(255, 255, 255, 0.42);
+  border-radius: 12px;
+  padding: 10px 12px;
+  flex-shrink: 0;
 }
 
 .res-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 14px;
-  font-size: 0.88rem;
-  margin-top: 8px;
+  gap: 6px 12px;
+  font-size: 0.84rem;
+  margin-top: 6px;
 }
 
 .res-row b {
   color: var(--cinnabar);
 }
 
-.destiny-btn {
-  margin-top: 10px;
-  width: 100%;
+.log {
+  font-size: 0.72rem;
+  color: var(--smoke);
+  margin-top: 6px;
+  max-height: 2.4em;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+/* 底栏：手牌 + 操作贴底 */
+.combat-dock {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0 calc(10px + var(--safe-bottom));
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(232, 213, 188, 0.95) 18%);
+  flex-shrink: 0;
 }
 
 .hand {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 8px 2px 4px;
-  min-height: 132px;
+  padding: 6px 2px 2px;
+  min-height: 148px;
   scrollbar-width: thin;
+  align-items: flex-end;
 }
 
+/* 实体卡牌比例约 5:7 */
 .card {
-  flex: 0 0 108px;
-  height: 124px;
-  border-radius: 12px;
-  background: #fffaf3;
-  border: 1px solid rgba(42, 26, 16, 0.15);
-  padding: 10px 8px;
+  position: relative;
+  flex: 0 0 auto;
+  width: 96px;
+  aspect-ratio: 5 / 7;
+  height: auto;
+  border-radius: 10px;
+  background:
+    linear-gradient(165deg, #fffdf8 0%, #f7ead7 100%);
+  border: 1.5px solid rgba(42, 26, 16, 0.22);
+  padding: 8px 7px 10px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   font: inherit;
   color: inherit;
   text-align: left;
-  box-shadow: 0 4px 10px rgba(42, 26, 16, 0.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 6px 14px rgba(42, 26, 16, 0.12);
   transition:
     transform 0.15s ease,
     border-color 0.15s ease;
 }
 
 .card:active {
-  transform: translateY(-6px);
+  transform: translateY(-10px);
 }
 
 .card.is-disabled {
-  opacity: 0.4;
+  opacity: 0.42;
   cursor: not-allowed;
 }
 
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .card-cost {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--cinnabar);
+  font-weight: 700;
 }
 
 .card-name {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.06em;
-  margin: 4px 0;
+  margin: 6px 0 4px;
+  font-weight: 700;
 }
 
 .card-desc {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--smoke);
-  line-height: 1.3;
+  line-height: 1.35;
   flex: 1;
   overflow: hidden;
 }
 
 .card-type {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.1em;
   color: var(--gold);
 }
 
-.combat-actions {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 8px;
+.card-info {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid rgba(42, 26, 16, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  font: inherit;
+  font-size: 0.62rem;
+  color: var(--smoke);
+  cursor: pointer;
+  padding: 0;
 }
 
-.log {
+.combat-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.1fr 1.3fr;
+  gap: 6px;
+}
+
+.pile-btn {
+  padding: 10px 6px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.destiny-btn {
+  padding: 10px 6px;
+  font-size: 0.82rem;
+}
+
+.end-turn-btn {
+  padding: 10px 6px;
+  letter-spacing: 0.24em;
+}
+
+/* Modal */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 12, 8, 0.55);
+  display: grid;
+  place-items: end center;
+  padding: 16px;
+  z-index: 20;
+  animation: fade-up 0.2s ease-out;
+}
+
+.modal-panel {
+  width: 100%;
+  max-height: 72%;
+  overflow: auto;
+  background: var(--paper);
+  border-radius: 16px 16px 20px 20px;
+  padding: 18px 16px 16px;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-panel h3 {
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.pile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+.pile-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(42, 26, 16, 0.08);
+}
+
+.pile-row strong {
+  letter-spacing: 0.08em;
+  font-size: 0.92rem;
+}
+
+.pile-row span {
   font-size: 0.75rem;
   color: var(--smoke);
-  max-height: 48px;
-  overflow: hidden;
-  opacity: 0.9;
+}
+
+.card-detail .detail-type {
+  font-size: 0.78rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.card-detail .detail-desc {
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.card-detail .detail-lore {
+  font-size: 0.82rem;
+  color: var(--smoke);
+  margin-bottom: 16px;
+  line-height: 1.5;
 }
 
 .result-box {
