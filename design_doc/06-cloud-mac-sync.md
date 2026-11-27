@@ -1,9 +1,10 @@
 # 云端 → Mac mini 同步步骤
 
-> 文档状态：运维说明（v1.1）  
+> 文档状态：运维说明（v1.2）  
 > 场景：可玩原型在 Cursor 云端迭代；阶段性成果同步回 Mac mini 本机仓库。  
 > 目标仓库（已创建 · public · `main`）：`https://github.com/bebetterst/xiyou-benji`  
 > Clone URL：`https://github.com/bebetterst/xiyou-benji.git`  
+> 公网预览（GitHub Pages）：`https://bebetterst.github.io/xiyou-benji/`  
 > Mac 路径：`/Users/zhuning/nascode/xiyou-benji`
 
 ---
@@ -43,8 +44,9 @@ npm run dev -- --host 0.0.0.0 --port 5173
 ```
 
 - 本机环回冒烟：`curl -I http://127.0.0.1:5173/`  
-- 对外预览：在已挂载 GitHub 仓库的 Cloud Agent 上使用 **publish-app**（用户在 Cursor 确认可见性）；或打开 Agent 的 **[Try Live](bc-id#desktop)** 桌面。  
-- 用户无法访问 Mac mini 的 `127.0.0.1` 时，**不要**依赖 Mac 本机 Vite 给外网演示。
+- **公网预览（推荐）**：`https://bebetterst.github.io/xiyou-benji/`（`gh-pages` 分支静态站；更新后重新部署 dist）  
+- 备选：Cloud Agent **[Try Live](bc-id#desktop)** 打开本机 `5173`；或在「已挂载该 GitHub 仓」的 Cloud Agent 上 **publish-app**。  
+- 用户无法访问 Mac mini 的 `127.0.0.1` 时，优先用 Pages / 云端预览，**不要**依赖 Mac 本机 Vite 给外网演示。
 
 ---
 
@@ -127,5 +129,6 @@ git stash pop          # 解决冲突后再决定是否 push 回远程
 |------|------|
 | v1.0 | 初稿：云端重建后同步回 Mac mini 流程 |
 | v1.1 | 仓库已上线 `bebetterst/xiyou-benji`；补 Clone URL；Mac 可直接 `git pull` / `git clone` |
+| v1.2 | 增加 GitHub Pages 公网预览 `https://bebetterst.github.io/xiyou-benji/` |
 
 *仓库 URL 或 Mac 路径变更时请升版。*
